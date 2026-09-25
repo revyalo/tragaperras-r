@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
   dpi = 140
 )
 project_root <- normalizePath(if (dir.exists("R")) "." else "..")
+knitr::opts_knit$set(base.dir = file.path(project_root, "analysis"))
 invisible(lapply(
   list.files(file.path(project_root, "R"), pattern = "\\.R$", full.names = TRUE),
   source
