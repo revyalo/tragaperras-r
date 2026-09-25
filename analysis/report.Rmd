@@ -102,7 +102,7 @@ c(
 plot_data <- simulation_result$categories
 matrix_data <- rbind(plot_data$probability, plot_data$observed_probability)
 colnames(matrix_data) <- plot_data$label
-old_par <- par(mar = c(4.5, 13, 1, 1))
+old_par <- par(mar = c(4.5, 18, 1, 1))
 barplot(
   100 * matrix_data,
   beside = TRUE,
