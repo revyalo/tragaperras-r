@@ -7,22 +7,22 @@
 Reimplementación completa de una práctica universitaria de probabilidad. El
 proyecto transforma una tirada aislada en un modelo reproducible: enumera las
 625 combinaciones posibles, calcula el retorno exacto, busca tablas de premios
-enteras y contrasta la teoria mediante simulaciones Monte Carlo.
+enteras y contrasta la teoría mediante simulaciones Monte Carlo.
 
 > **Resultado principal:** la tabla incluida devuelve un RTP teórico del
 > **70,000128 %** para una apuesta de 1 EUR.
 
-## Que aporta la versión 2
+## Qué aporta la versión 2
 
 - Motor de juego dividido en funciones reutilizables.
 - Cinco símbolos, cuatro rodillos y reglas de premio mutuamente excluyentes.
 - Cálculo exacto independiente de la simulación.
-- Busqueda automatica de tablas de premios para un RTP objetivo.
+- Búsqueda automática de tablas de premios para un RTP objetivo.
 - Simulación vectorizada y reproducible de hasta millones de tiradas.
-- Intervalo de confianza del RTP observado y evolucion del saldo.
+- Intervalo de confianza del RTP observado y evolución del saldo.
 - Aplicación Shiny para jugar, simular y explorar el modelo.
 - Informe R Markdown con código, tablas y gráficas regenerables.
-- Pruebas unitarias y ejecución automatica en GitHub Actions.
+- Pruebas unitarias y ejecución automática en GitHub Actions.
 
 ## Modelo
 
@@ -32,7 +32,7 @@ enteras y contrasta la teoria mediante simulaciones Monte Carlo.
 | Panda | 4 % |
 
 La tabla de premios por defecto se obtuvo buscando importes enteros con la
-jerarquia `4 pandas > 3 pandas > 4 comunes > 3 comunes`:
+jerarquía `4 pandas > 3 pandas > 4 comunes > 3 comunes`:
 
 | Resultado | Probabilidad exacta | Premio |
 |---|---:|---:|
@@ -49,7 +49,7 @@ RTP = sum(probabilidad(resultado) * premio(resultado)) / coste_tirada
     = 0,70000128
 ```
 
-La derivación completa esta en [docs/MODEL.md](docs/MODEL.md) y el análisis
+La derivación completa está en [docs/MODEL.md](docs/MODEL.md) y el análisis
 reproducible en [analysis/report.Rmd](analysis/report.Rmd).
 
 ## Uso rápido
@@ -82,7 +82,7 @@ simulation <- simulate_spins(machine, n = 100000, seed = 2026)
 simulation_summary(simulation)$observed_rtp
 ```
 
-Tambien se pueden buscar otras tablas de premios:
+También se pueden buscar otras tablas de premios:
 
 ```r
 find_integer_paytable(machine, target_rtp = 0.70, max_results = 5)

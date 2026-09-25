@@ -67,7 +67,7 @@ ui <- shiny::fluidPage(
             shiny::div(
               class = "metrics-row compact",
               metric_card("Saldo", "balance_value", " EUR"),
-              metric_card("Ultimo premio", "last_prize", " EUR")
+              metric_card("Último premio", "last_prize", " EUR")
             ),
             shiny::div(
               class = "panel",
@@ -83,7 +83,7 @@ ui <- shiny::fluidPage(
           class = "control-strip",
           shiny::selectInput(
             "simulation_n",
-            "Numero de tiradas",
+            "Número de tiradas",
             choices = c("10.000" = 10000, "100.000" = 100000, "1.000.000" = 1000000),
             selected = 100000
           ),
@@ -134,7 +134,7 @@ ui <- shiny::fluidPage(
             shiny::span(class = "section-kicker", "TABLA OPTIMIZADA"),
             shiny::h2("Premios enteros, objetivo medible"),
             shiny::p(
-              "El buscador recorre tablas con una jerarquia de premios valida y ordena las candidatas por distancia al RTP objetivo."
+              "El buscador recorre tablas con una jerarquía de premios válida y ordena las candidatas por distancia al RTP objetivo."
             ),
             shiny::tableOutput("optimizer_table")
           )
@@ -210,7 +210,7 @@ server <- function(input, output, session) {
   output$recent_spins <- shiny::renderTable({
     data <- history()
     if (!nrow(data)) {
-      return(data.frame(Estado = "Todavia no hay tiradas"))
+      return(data.frame(Estado = "Todavía no hay tiradas"))
     }
     head(data, 6L)
   }, striped = TRUE, bordered = FALSE, spacing = "s", rownames = FALSE)
@@ -259,7 +259,7 @@ server <- function(input, output, session) {
       shiny::div(
         class = "empty-state",
         shiny::div(class = "empty-icon", "∿"),
-        shiny::h3("La simulación esta preparada"),
+        shiny::h3("La simulación está preparada"),
         shiny::p("Elige el numero de tiradas y una semilla reproducible.")
       )
     }

@@ -8,7 +8,7 @@ test:
 	Rscript tests/testthat.R
 
 report:
-	Rscript -e 'dir.create("analysis/figures", recursive = TRUE, showWarnings = FALSE); knitr::knit("analysis/report.Rmd", "analysis/report.md")'
+	Rscript -e 'dir.create("analysis/figures", recursive = TRUE, showWarnings = FALSE); knitr::knit("analysis/report.Rmd")'
 
 run:
 	Rscript -e 'shiny::runApp(".", launch.browser = TRUE)'

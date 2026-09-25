@@ -73,7 +73,7 @@ c(
 ```
 
 El buscador permite encontrar automáticamente alternativas enteras que respetan
-la jerarquia de premios:
+la jerarquía de premios:
 
 ```{r optimizer}
 find_integer_paytable(machine, target_rtp = 0.70, max_results = 6)

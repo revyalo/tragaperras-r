@@ -8,7 +8,7 @@
 default_symbols <- function() {
   data.frame(
     key = c("shrimp", "scorpion", "pig", "mouse", "panda"),
-    label = c("Gamba", "Escorpion", "Cerdo", "Raton", "Panda"),
+    label = c("Gamba", "Escorpión", "Cerdo", "Ratón", "Panda"),
     emoji = c("U0001F990", "U0001F982", "U0001F437", "U0001F42D", "U0001F43C"),
     probability = c(0.24, 0.24, 0.24, 0.24, 0.04),
     stringsAsFactors = FALSE
@@ -29,8 +29,8 @@ default_paytable <- function() {
       "no_prize"
     ),
     label = c(
-      "Cuatro pandas", "Cuatro simbolos comunes iguales",
-      "Exactamente tres pandas", "Exactamente tres comunes iguales",
+      "Cuatro pandas", "Cuatro símbolos comunes iguales",
+      "Exactamente tres pandas", "Exactamente tres símbolos comunes iguales",
       "Sin premio"
     ),
     prize = c(126, 26, 75, 2, 0),

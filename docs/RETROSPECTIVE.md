@@ -4,7 +4,7 @@
 
 La primera versión fue una práctica de Probabilidad y Estadistica realizada en
 RStudio. Simulaba una máquina de cuatro rodillos con cinco figuras: gamba,
-escorpión, cerdo, ratón y panda. El panda tenia una probabilidad menor y actuaba
+escorpión, cerdo, ratón y panda. El panda tenía una probabilidad menor y actuaba
 como símbolo especial.
 
 La entrega recibio una calificación de 4,75. El fichero fuente se perdio, pero
@@ -16,7 +16,7 @@ cálculos empleados.
 - Uso de `sample()` con probabilidades no uniformes.
 - Incorporacion de una cuarta ventana respecto al ejercicio base.
 - Representacion mediante emoji.
-- Primer intento de relaciónar probabilidades y premios con el retorno.
+- Primer intento de relacionar probabilidades y premios con el retorno.
 - Ejecuciones de ejemplo documentadas en el informe.
 
 ## Problemas detectados
@@ -53,22 +53,22 @@ premiadas. La probabilidad correcta de no obtener premio es 0,8183808.
 
 ### Tabla de premios incoherente
 
-Se definia el vector `c(75, 25, 6, 2, 0)`, pero el premio de 6 EUR nunca se
-utilizaba. Tres pandas recibian el mismo premio que cuatro símbolos comunes. La
+Se definía el vector `c(75, 25, 6, 2, 0)`, pero el premio de 6 EUR nunca se
+utilizaba. Tres pandas recibían el mismo premio que cuatro símbolos comunes. La
 relación entre los importes finales y el retorno objetivo tampoco se verificaba.
 
 ### Estructura del programa
 
-Cada rodillo y cada condicion estaban escritos manualmente. No habia funciones,
+Cada rodillo y cada condición estaban escritos manualmente. No había funciones,
 pruebas, una semilla reproducible en el código final ni una simulación masiva
-que contrastase la teoria.
+que contrastase la teoría.
 
 ## Decisiones de la reimplementación
 
 - Mantener los cinco símbolos y sus probabilidades originales.
 - Convertir las reglas en categorías exclusivas y con nombre.
 - Enumerar todo el espacio muestral para obtener probabilidades exactas.
-- Separar configuración, tirada, teoria, optimización y simulación.
+- Separar configuración, tirada, teoría, optimización y simulación.
 - Ajustar una tabla de premios entera a un RTP objetivo del 70 %.
 - Añadir pruebas unitarias para que los errores anteriores no reaparezcan.
 - Presentar el modelo mediante una aplicación Shiny y un informe reproducible.

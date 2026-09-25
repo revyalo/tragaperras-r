@@ -25,3 +25,12 @@ jobs:
         run: R CMD INSTALL .
       - name: Run unit tests
         run: Rscript tests/testthat.R
+      - name: Render reproducible analysis
+        run: make report
+      - name: Upload rendered report
+        uses: actions/upload-artifact@v4
+        with:
+          name: reproducible-report
+          path: |
+            analysis/report.md
+            analysis/figures/

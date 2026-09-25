@@ -1,4 +1,4 @@
-# Modelo probabilistico
+# Modelo probabilístico
 
 ## Espacio muestral
 
@@ -23,7 +23,7 @@ Las reglas se evaluan en orden y son mutuamente excluyentes:
 4. Exactamente tres símbolos comunes iguales.
 5. Cualquier otro resultado.
 
-Las probabilidades se pueden obtener analiticamente:
+Las probabilidades se pueden obtener analíticamente:
 
 ```text
 P(4 pandas)  = 0,04^4                              = 0,00000256
@@ -71,11 +71,11 @@ premio(4 comunes) > premio(3 comunes) > 0
 
 Las candidatas se ordenan por su distancia absoluta al retorno objetivo.
 
-## Teoria y simulación
+## Teoría y simulación
 
 La enumeracion exacta responde a cuanto deberia devolver la máquina a largo
 plazo. La simulación Monte Carlo responde a cuanto puede observarse en una
-muestra finita. Una desviacion temporal respecto al 70 % no invalida el modelo:
+muestra finita. Una desviación temporal respecto al 70 % no invalida el modelo:
 la dispersión de los premios y los resultados raros producen variabilidad.
 
 La aplicación presenta ambos valores y un intervalo de confianza aproximado del
