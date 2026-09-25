@@ -120,4 +120,4 @@ y no garantiza el resultado de una sesion concreta.
 
 ## Licencia
 
-[MIT](LICENSE.md) - David Arevalo Rey, 2026.
+[MIT](LICENSE.md) - David Arévalo Rey, 2026.

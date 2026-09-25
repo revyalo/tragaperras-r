@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this educational project, please cite it as follows."
-title: "Tragaperras estadistica en R"
+title: "Tragaperras estadística en R"
 type: software
 authors:
-  - family-names: "Arevalo Rey"
+  - family-names: "Arévalo Rey"
     given-names: "David"
 repository-code: "https://github.com/revyalo/tragaperras-r"
 url: "https://github.com/revyalo/tragaperras-r"

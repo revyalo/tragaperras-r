@@ -4,7 +4,7 @@ Title: Simulador Estadístico de una Máquina Tragaperras
 Version: 2.0.0
 Authors@R: person(
     given = "David",
-    family = "Arevalo Rey",
+    family = "Arévalo Rey",
     role = c("aut", "cre"),
     email = "revyalo@users.noreply.github.com"
   )

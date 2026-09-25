@@ -1,6 +1,6 @@
 ---
 title: "Tragaperras estadística: del cálculo exacto a Monte Carlo"
-author: "David Arevalo Rey"
+author: "David Arévalo Rey"
 date: "`r Sys.Date()`"
 output: github_document
 ---
@@ -38,7 +38,7 @@ probabilidad 0,04. Cada tirada cuesta 1 EUR.
 # Espacio muestral exacto
 
 Con cinco símbolos y cuatro rodillos existen `r theory$outcomes` resultados
-ordenados. En vez de depender de formulas aisladas, el programa enumera todos
+ordenados. En vez de depender de fórmulas aisladas, el programa enumera todos
 los casos y comprueba que sus probabilidades suman uno.
 
 ```{r exact-space}
@@ -51,11 +51,11 @@ exact_table <- theory$categories[, c("label", "probability", "prize", "expected_
 names(exact_table) <- c("Resultado", "Probabilidad", "Premio_EUR", "Contribucion_RTP")
 exact_table$Probabilidad <- sprintf("%.8f", exact_table$Probabilidad)
 exact_table$Contribucion_RTP <- sprintf("%.8f", exact_table$Contribucion_RTP)
-knitr::kable(exact_table, align = c("l", "r", "r", "r"))
+knitr::kable(exact_table, align = c("l", "r", "r", "r"), row.names = FALSE)
 ```
 
 La probabilidad de obtener cualquier premio es
-`r sprintf("%.6f %%", 100 * theory$hit_rate)`. El resultado mas frecuente es no
+`r sprintf("%.6f %%", 100 * theory$hit_rate)`. El resultado más frecuente es no
 obtener premio, con una probabilidad de
 `r sprintf("%.6f %%", 100 * (1 - theory$hit_rate))`.
 
@@ -83,7 +83,7 @@ find_integer_paytable(machine, target_rtp = 0.70, max_results = 6)
 # Validación Monte Carlo
 
 Se simulan 250.000 tiradas con una semilla fija. Esta simulación no sustituye el
-cálculo exacto: actua como comprobación independiente y muestra la variabilidad
+cálculo exacto: actúa como comprobación independiente y muestra la variabilidad
 de una muestra finita.
 
 ```{r simulation}
@@ -102,6 +102,7 @@ c(
 plot_data <- simulation_result$categories
 matrix_data <- rbind(plot_data$probability, plot_data$observed_probability)
 colnames(matrix_data) <- plot_data$label
+old_par <- par(mar = c(4.5, 13, 1, 1))
 barplot(
   100 * matrix_data,
   beside = TRUE,
@@ -113,11 +114,12 @@ barplot(
   legend.text = c("Teórica", "Observada"),
   args.legend = list(x = "bottomright", bty = "n")
 )
+par(old_par)
 ```
 
 ## Convergencia
 
-La linea verde representa el RTP acumulado de la simulación. La referencia
+La línea verde representa el RTP acumulado de la simulación. La referencia
 amarilla es el valor teórico.
 
 ```{r convergence-plot, echo=FALSE}
@@ -145,7 +147,7 @@ legend(
 
 # Conclusión
 
-La enumeracion exacta confirma un RTP de
+La enumeración exacta confirma un RTP de
 `r sprintf("%.6f %%", 100 * theory$rtp)`, a una distancia de
 `r sprintf("%.6f", abs(100 * theory$rtp - 70))` puntos porcentuales del objetivo.
 La simulación reproduce el comportamiento dentro de la incertidumbre esperada.
