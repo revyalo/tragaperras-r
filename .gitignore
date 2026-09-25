@@ -1,0 +1,13 @@
+.DS_Store
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+renv/library/
+renv/staging/
+*.Rcheck/
+*.tar.gz
+tmp/
+analysis/*_cache/
+analysis/*_files/
+!analysis/figures/

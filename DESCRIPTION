@@ -1,0 +1,27 @@
+Package: tragaperras
+Type: Package
+Title: Simulador Estadístico de una Máquina Tragaperras
+Version: 2.0.0
+Authors@R: person(
+    given = "David",
+    family = "Arevalo Rey",
+    role = c("aut", "cre"),
+    email = "revyalo@users.noreply.github.com"
+  )
+Description: Motor reproducible para una máquina tragaperras de cuatro
+    rodillos. Enumera exactamente el espacio de resultados, calcula el retorno
+    teórico, busca tablas de premios enteras y contrasta el modelo mediante
+    simulaciones Monte Carlo. Incluye una aplicación interactiva con Shiny.
+License: MIT + file LICENSE
+URL: https://github.com/revyalo/tragaperras-r
+BugReports: https://github.com/revyalo/tragaperras-r/issues
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Suggests:
+    ggplot2,
+    knitr,
+    rmarkdown,
+    shiny,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2

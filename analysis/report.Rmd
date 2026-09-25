@@ -1,0 +1,155 @@
+---
+title: "Tragaperras estadística: del cálculo exacto a Monte Carlo"
+author: "David Arevalo Rey"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.path = "figures/",
+  fig.width = 8,
+  fig.height = 4.5,
+  dpi = 140
+)
+project_root <- normalizePath(if (dir.exists("R")) "." else "..")
+invisible(lapply(
+  list.files(file.path(project_root, "R"), pattern = "\\.R$", full.names = TRUE),
+  source
+))
+machine <- create_machine()
+theory <- theoretical_summary(machine)
+```
+
+# Objetivo
+
+Este documento reconstruye y corrige una práctica universitaria sobre una
+máquina tragaperras de cuatro rodillos. El objetivo es diseñar una tabla de
+premios con un retorno cercano al 70 %, demostrar el valor de forma exacta y
+contrastarlo mediante simulación.
+
+La máquina utiliza cuatro símbolos comunes con probabilidad 0,24 y un panda con
+probabilidad 0,04. Cada tirada cuesta 1 EUR.
+
+# Espacio muestral exacto
+
+Con cinco símbolos y cuatro rodillos existen `r theory$outcomes` resultados
+ordenados. En vez de depender de formulas aisladas, el programa enumera todos
+los casos y comprueba que sus probabilidades suman uno.
+
+```{r exact-space}
+outcomes <- enumerate_outcomes(machine)
+c(outcomes = nrow(outcomes), probability_sum = sum(outcomes$probability))
+```
+
+```{r exact-table, echo=FALSE}
+exact_table <- theory$categories[, c("label", "probability", "prize", "expected_contribution")]
+names(exact_table) <- c("Resultado", "Probabilidad", "Premio_EUR", "Contribucion_RTP")
+exact_table$Probabilidad <- sprintf("%.8f", exact_table$Probabilidad)
+exact_table$Contribucion_RTP <- sprintf("%.8f", exact_table$Contribucion_RTP)
+knitr::kable(exact_table, align = c("l", "r", "r", "r"))
+```
+
+La probabilidad de obtener cualquier premio es
+`r sprintf("%.6f %%", 100 * theory$hit_rate)`. El resultado mas frecuente es no
+obtener premio, con una probabilidad de
+`r sprintf("%.6f %%", 100 * (1 - theory$hit_rate))`.
+
+# Tabla de premios
+
+La tabla incluida asigna 126 EUR a cuatro pandas, 75 EUR a tres pandas, 26 EUR
+a cuatro símbolos comunes y 2 EUR a tres símbolos comunes. Su retorno exacto es:
+
+```{r rtp}
+c(
+  expected_payout = theory$expected_payout,
+  rtp = theory$rtp,
+  house_edge = theory$house_edge,
+  standard_deviation = theory$standard_deviation
+)
+```
+
+El buscador permite encontrar automáticamente alternativas enteras que respetan
+la jerarquia de premios:
+
+```{r optimizer}
+find_integer_paytable(machine, target_rtp = 0.70, max_results = 6)
+```
+
+# Validación Monte Carlo
+
+Se simulan 250.000 tiradas con una semilla fija. Esta simulación no sustituye el
+cálculo exacto: actua como comprobación independiente y muestra la variabilidad
+de una muestra finita.
+
+```{r simulation}
+simulation <- simulate_spins(machine, n = 250000, seed = 2026)
+simulation_result <- simulation_summary(simulation, machine)
+c(
+  observed_rtp = simulation_result$observed_rtp,
+  theoretical_rtp = simulation_result$theoretical_rtp,
+  ci_lower = simulation_result$rtp_confidence_interval[1],
+  ci_upper = simulation_result$rtp_confidence_interval[2],
+  observed_hit_rate = simulation_result$observed_hit_rate
+)
+```
+
+```{r category-plot, echo=FALSE}
+plot_data <- simulation_result$categories
+matrix_data <- rbind(plot_data$probability, plot_data$observed_probability)
+colnames(matrix_data) <- plot_data$label
+barplot(
+  100 * matrix_data,
+  beside = TRUE,
+  horiz = TRUE,
+  las = 1,
+  col = c("#f4c95d", "#4ee1a0"),
+  border = NA,
+  xlab = "Probabilidad (%)",
+  legend.text = c("Teórica", "Observada"),
+  args.legend = list(x = "bottomright", bty = "n")
+)
+```
+
+## Convergencia
+
+La linea verde representa el RTP acumulado de la simulación. La referencia
+amarilla es el valor teórico.
+
+```{r convergence-plot, echo=FALSE}
+cumulative_rtp <- cumsum(simulation$prize) / seq_len(nrow(simulation))
+keep <- unique(round(seq(1, nrow(simulation), length.out = 2500)))
+plot(
+  keep,
+  100 * cumulative_rtp[keep],
+  type = "l",
+  col = "#159b68",
+  lwd = 1.5,
+  xlab = "Tirada",
+  ylab = "RTP acumulado (%)"
+)
+abline(h = 100 * theory$rtp, col = "#d99f00", lwd = 2, lty = 2)
+legend(
+  "topright",
+  legend = c("Simulado", "Teórico"),
+  col = c("#159b68", "#d99f00"),
+  lty = c(1, 2),
+  lwd = 2,
+  bty = "n"
+)
+```
+
+# Conclusión
+
+La enumeracion exacta confirma un RTP de
+`r sprintf("%.6f %%", 100 * theory$rtp)`, a una distancia de
+`r sprintf("%.6f", abs(100 * theory$rtp - 70))` puntos porcentuales del objetivo.
+La simulación reproduce el comportamiento dentro de la incertidumbre esperada.
+
+La reimplementación también corrige las dos debilidades principales del trabajo
+original: categorías calculadas con probabilidades equivocadas y una tabla de
+premios cuya rentabilidad nunca se verificaba. Todo resultado de este informe se
+puede regenerar desde el repositorio.
