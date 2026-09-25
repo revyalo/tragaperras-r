@@ -50,7 +50,10 @@ RTP = sum(probabilidad(resultado) * premio(resultado)) / coste_tirada
 ```
 
 La derivación completa está en [docs/MODEL.md](docs/MODEL.md) y el análisis
-reproducible en [analysis/report.Rmd](analysis/report.Rmd).
+reproducible en [analysis/report.md](analysis/report.md). Su fuente ejecutable
+se conserva en [analysis/report.Rmd](analysis/report.Rmd).
+
+![Comparación entre probabilidades teóricas y simuladas](analysis/figures/category-plot-1.png)
 
 ## Uso rápido
 
